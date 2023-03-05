@@ -13,8 +13,8 @@ namespace Realization
         public int CurrentGeneration { get; private set;}
         public string path = @"D:\Дипломная работа\Solubility_Of_API\change_in_concentration.txt";
         public Cells[,] Field;
-        private readonly int _rows = Console.LargestWindowHeight;
-        private readonly int _cols = Console.LargestWindowWidth;
+        private readonly int _rows =50 /*Console.LargestWindowHeight*/;
+        private readonly int _cols = 50/*Console.LargestWindowWidth*/;
         private Random _random = new Random();
         double D = 8;
         int MaxSolidsConcent = 500;
@@ -39,15 +39,15 @@ namespace Realization
             Field = new Cells[_rows, _cols];
             CellularAutomata.StartCreate(Field);
             Tablets tablet = new Tablets(Field.GetLength(0), Field.GetLength(1), D);
-            bool intersection_with_other_tablets = false;
+            //bool intersection_with_other_tablets = false;
 
             while (tablet.NumberOfTablets > 0)
             {
                 int X = _random.Next(0, Field.GetLength(0));
                 int Y = _random.Next(0, Field.GetLength(1));
 
-                while (!intersection_with_other_tablets)
-                {
+                //while (!intersection_with_other_tablets)
+                //{
                     for (int x = X - (int)tablet.R; x <= X + (int)tablet.R; x++)
                     {
                         for (int y = Y - (int)tablet.R; y <= Y + (int)tablet.R; y++)
@@ -55,7 +55,7 @@ namespace Realization
 
                             if (Field[x, y].concentration >= Field[x, y].saturated_solution)
                             {
-                                intersection_with_other_tablets = true;
+                                //intersection_with_other_tablets = true;
                             }
                             else
                             {
@@ -73,7 +73,7 @@ namespace Realization
                             }
                         }
                     }
-                }
+                //}
 
             }
         }
@@ -88,9 +88,9 @@ namespace Realization
                     {
                         double dC;
 
-                        for (int i = x - 1; i <= x + 1; i++)
+                        for (int i =- 1; i <= + 1; i++)
                         {
-                            for (int j = y - 1; j <= y + 1; j++)
+                            for (int j = - 1; j <= + 1; j++)
                             {
                                 var I = (x + i + Field.GetLength(0)) % Field.GetLength(0);
                                 var J = (y + j + Field.GetLength(1)) % Field.GetLength(1);
@@ -135,9 +135,9 @@ namespace Realization
                     if (Field[x, y].concentration < Field[x, y].saturated_solution)
                     {
                         double dC;
-                        for (int i = x - 1; i <= x + 1; i++)
+                        for (int i = - 1; i <= + 1; i++)
                         {
-                            for (int j = y - 1; j < y + 1; j++)
+                            for (int j = - 1; j <= + 1; j++)
                             {
                                 var I = (x + i + Field.GetLength(0)) % Field.GetLength(0);
                                 var J = (y + j + Field.GetLength(1)) % Field.GetLength(1);
